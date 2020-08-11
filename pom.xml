@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.odilonfontes</groupId>
-    <artifactId>central-de-erros-api</artifactId>
+    <artifactId>error-center-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>central-de-erros-api</name>
-    <description>Central de Erros API</description>
+    <name>error-center-api</name>
+    <description>API Error Center</description>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
