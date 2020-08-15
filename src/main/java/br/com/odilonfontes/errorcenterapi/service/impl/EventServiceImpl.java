@@ -3,29 +3,37 @@ package br.com.odilonfontes.errorcenterapi.service.impl;
 import br.com.odilonfontes.errorcenterapi.domain.Event;
 import br.com.odilonfontes.errorcenterapi.repository.EventRepository;
 import br.com.odilonfontes.errorcenterapi.service.EventService;
+import br.com.odilonfontes.errorcenterapi.service.dto.EventDTO;
+import br.com.odilonfontes.errorcenterapi.service.mapper.EventMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
+    private final EventMapper eventMapper;
 
-    public EventServiceImpl(EventRepository eventRepository) {
+    public EventServiceImpl(EventRepository eventRepository, EventMapper eventMapper) {
         this.eventRepository = eventRepository;
+        this.eventMapper = eventMapper;
     }
 
     @Override
-    public Event save(Event event) {
-        return eventRepository.save(event);
+    public EventDTO save(EventDTO eventDTO) {
+        Event event = eventMapper.toEntity(eventDTO);
+        event = eventRepository.save(event);
+        return eventMapper.toDTO(event);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Event> findAll(Pageable pageable) {
-        return eventRepository.findAll(pageable);
+    public Page<EventDTO> findAll(Pageable pageable) {
+        return eventRepository.findAll(pageable)
+                .map(eventMapper::toDTO);
     }
 
 }
