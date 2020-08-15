@@ -41,16 +41,15 @@ public class Event implements Serializable {
     @NotNull
     private String source;
 
+    @Column(name = "created_at")
     @NotNull
     @CreatedDate
-    @Setter(value = AccessLevel.NONE)
     private LocalDateTime createdAt;
 
     @NotNull
     private EventLevel level;
 
-    @Column(name = "number_occurences")
     @NotNull
-    private Integer occurences;
+    private Integer quantity;
 
 }
