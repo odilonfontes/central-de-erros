@@ -1,7 +1,7 @@
 package br.com.odilonfontes.errorcenterapi.web.rest;
 
-import br.com.odilonfontes.errorcenterapi.domain.Event;
 import br.com.odilonfontes.errorcenterapi.service.EventService;
+import br.com.odilonfontes.errorcenterapi.service.dto.EventDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -22,14 +22,14 @@ public class EventResource {
     }
 
     @PostMapping("/events")
-    public ResponseEntity<Event> createEvent(@Valid @RequestBody Event event) {
-        Event result = eventService.save(event);
+    public ResponseEntity<EventDTO> createEvent(@Valid @RequestBody EventDTO eventDTO) {
+        EventDTO result = eventService.save(eventDTO);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("/events")
-    public ResponseEntity<List<Event>> getAllEvents(Pageable pageable) {
-        Page<Event> result = eventService.findAll(pageable);
+    public ResponseEntity<List<EventDTO>> getAllEvents(Pageable pageable) {
+        Page<EventDTO> result = eventService.findAll(pageable);
         return new ResponseEntity<>(result.getContent(), HttpStatus.OK);
     }
 
