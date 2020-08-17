@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 @Service
 @Transactional
 public class EventServiceImpl implements EventService {
@@ -24,7 +26,15 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventDTO save(EventDTO eventDTO) {
-        Event event = eventMapper.toEntity(eventDTO);
+        LocalDate currentDate = LocalDate.now();
+        Event event = eventRepository.findByDescriptionAndSourceAndEventDateAndLevel(
+                eventDTO.getDescription(), eventDTO.getSource(), currentDate, eventDTO.getLevel())
+                .orElse(eventMapper.toEntity(eventDTO));
+
+        if (event.getId() != null) {
+            event.increaseQuantity();
+        }
+
         event = eventRepository.save(event);
         return eventMapper.toDTO(event);
     }
