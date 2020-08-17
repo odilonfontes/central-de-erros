@@ -11,45 +11,60 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @EntityListeners(AuditingEntityListener.class)
 @Entity
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"description", "source", "event_date", "level"},
+                                             name = "uk_event"))
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Builder
 public class Event implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public Event() {
+        quantity = 1;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(value = AccessLevel.NONE)
     private Long id;
 
+    @Column(updatable = false)
     @Size(max = 256)
     @NotNull
     private String description;
 
+    @Column(updatable = false)
     @Size(max = 32767)
     @NotNull
     private String log;
 
+    @Column(updatable = false)
     @Size(max = 256)
     @NotNull
     private String source;
 
-    @Column(name = "created_at")
-    @NotNull
-    @CreatedDate
-    private LocalDateTime createdAt;
-
+    @Column(updatable = false)
     @NotNull
     private EventLevel level;
 
+    @Column(name = "event_date", updatable = false)
     @NotNull
+    @CreatedDate
+    @Setter(value = AccessLevel.NONE)
+    private LocalDate eventDate;
+
+    @NotNull
+    @Setter(value = AccessLevel.NONE)
     private Integer quantity;
+
+    public void increaseQuantity() {
+        quantity += 1;
+    }
 
 }
