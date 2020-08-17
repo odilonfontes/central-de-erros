@@ -4,6 +4,7 @@ import br.com.odilonfontes.errorcenterapi.domain.enumeration.EventLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -29,7 +30,6 @@ public class EventDTO implements Serializable {
     @NotNull
     private EventLevel level;
 
-    @NotNull
     private Integer quantity;
 
 }
