@@ -11,6 +11,10 @@ public interface EventMapper {
     @Mapping(source = "eventDate", target = "eventDate", dateFormat = "yyyy-MM-dd")
     EventDTO toDTO(Event event);
 
+    @Mapping(target = "log", ignore = true)
+    @Mapping(source = "eventDate", target = "eventDate", dateFormat = "yyyy-MM-dd")
+    EventDTO toListItemDTO(Event event);
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "eventDate", ignore = true)
     @Mapping(target = "quantity", ignore = true)
