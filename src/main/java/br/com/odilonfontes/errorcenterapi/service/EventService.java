@@ -8,5 +8,6 @@ public interface EventService {
 
     EventDTO save(EventDTO eventDTO);
     Page<EventDTO> findAll(Pageable pageable);
+    EventDTO findById(Long id);
 
 }
