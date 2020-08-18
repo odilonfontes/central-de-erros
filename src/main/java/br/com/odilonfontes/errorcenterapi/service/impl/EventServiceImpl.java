@@ -42,8 +42,14 @@ public class EventServiceImpl implements EventService {
     @Override
     @Transactional(readOnly = true)
     public Page<EventDTO> findAll(Pageable pageable) {
-        return eventRepository.findAll(pageable)
-                .map(eventMapper::toDTO);
+        return eventRepository.findAll(pageable).map(eventMapper::toListItemDTO);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public EventDTO findById(Long id) {
+        Event event = eventRepository.findById(id).orElse(null);
+        return eventMapper.toDTO(event);
     }
 
 }
