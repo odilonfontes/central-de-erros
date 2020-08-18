@@ -17,12 +17,4 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("usuario")
-                .password("{noop}senha")
-                .authorities("USER", "MANAGER");
-    }
-
 }
