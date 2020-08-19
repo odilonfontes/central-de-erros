@@ -7,10 +7,13 @@ import br.com.odilonfontes.errorcenterapi.service.dto.EventDTO;
 import br.com.odilonfontes.errorcenterapi.service.mapper.EventMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+
+import static br.com.odilonfontes.errorcenterapi.service.specification.EventSpecification.*;
 
 @Service
 @Transactional
@@ -41,8 +44,11 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<EventDTO> findAll(Pageable pageable) {
-        return eventRepository.findAll(pageable).map(eventMapper::toListItemDTO);
+    public Page<EventDTO> findAll(Pageable pageable, String descrption, String source, LocalDate eventDate) {
+        Specification<Event> specification = Specification.where(descriptionContains(descrption))
+                .and(sourceContains(source))
+                .and(eventDateEqual(eventDate));
+        return eventRepository.findAll(specification, pageable).map(eventMapper::toListItemDTO);
     }
 
     @Override
