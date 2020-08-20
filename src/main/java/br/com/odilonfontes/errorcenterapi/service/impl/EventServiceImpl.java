@@ -1,6 +1,7 @@
 package br.com.odilonfontes.errorcenterapi.service.impl;
 
 import br.com.odilonfontes.errorcenterapi.domain.Event;
+import br.com.odilonfontes.errorcenterapi.domain.enumeration.EventLevel;
 import br.com.odilonfontes.errorcenterapi.repository.EventRepository;
 import br.com.odilonfontes.errorcenterapi.service.EventService;
 import br.com.odilonfontes.errorcenterapi.service.dto.EventDTO;
@@ -44,10 +45,14 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<EventDTO> findAll(Pageable pageable, String descrption, String source, LocalDate eventDate) {
-        Specification<Event> specification = Specification.where(descriptionContains(descrption))
+    public Page<EventDTO> findAll(Pageable pageable, String description, String log, String source,
+                                  LocalDate eventDate, EventLevel level, Integer quantity) {
+        Specification<Event> specification = Specification.where(descriptionContains(description))
+                .and(logContains(log))
                 .and(sourceContains(source))
-                .and(eventDateEqual(eventDate));
+                .and(eventDateEqual(eventDate))
+                .and(levelEqual(level))
+                .and(quantityEqual(quantity));
         return eventRepository.findAll(specification, pageable).map(eventMapper::toListItemDTO);
     }
 

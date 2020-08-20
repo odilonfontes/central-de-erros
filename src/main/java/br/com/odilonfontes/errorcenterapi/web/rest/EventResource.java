@@ -1,11 +1,11 @@
 package br.com.odilonfontes.errorcenterapi.web.rest;
 
+import br.com.odilonfontes.errorcenterapi.domain.enumeration.EventLevel;
 import br.com.odilonfontes.errorcenterapi.service.EventService;
 import br.com.odilonfontes.errorcenterapi.service.dto.EventDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,9 +33,12 @@ public class EventResource {
     @GetMapping("/events")
     public ResponseEntity<List<EventDTO>> getEvents(@PageableDefault(size = 50) Pageable pageable,
                                                     @RequestParam(required = false) String description,
+                                                    @RequestParam(required = false) String log,
                                                     @RequestParam(required = false) String source,
-                                                    @RequestParam(required = false) LocalDate eventDate) {
-        Page<EventDTO> result = eventService.findAll(pageable, description, source, eventDate);
+                                                    @RequestParam(required = false) LocalDate eventDate,
+                                                    @RequestParam(required = false) EventLevel level,
+                                                    @RequestParam(required = false) Integer quantity) {
+        Page<EventDTO> result = eventService.findAll(pageable, description, log, source, eventDate, level, quantity);
         return new ResponseEntity<>(result.getContent(), HttpStatus.OK);
     }
 
