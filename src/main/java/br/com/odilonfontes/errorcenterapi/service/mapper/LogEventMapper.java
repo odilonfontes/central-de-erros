@@ -20,9 +20,9 @@ public interface LogEventMapper {
     @Mapping(source = "eventDate", target = "eventDate", dateFormat = "yyyy-MM-dd")
     LogEventItemListDTO toItemListDTO(LogEvent logEvent);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "eventDate", ignore = true)
-    @Mapping(target = "quantity", ignore = true)
+    @Mapping(target = "quantity", ignore = true, source = "")
+    @Mapping(target = "id", ignore = true, source = "")
+    @Mapping(target = "eventDate", ignore = true, source = "")
     LogEvent toEntity(CreateLogEventDTO createLogEventDTO);
 
 }

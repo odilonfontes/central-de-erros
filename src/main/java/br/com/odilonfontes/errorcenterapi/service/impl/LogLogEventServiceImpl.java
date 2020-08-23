@@ -33,17 +33,24 @@ public class LogLogEventServiceImpl implements LogEventService {
 
     @Override
     public LogEventCreatedDTO save(CreateLogEventDTO createLogEventDTO) {
-        LocalDate currentDate = LocalDate.now();
-        LogEvent logEvent = logEventRepository.findByDescriptionAndSourceAndEventDateAndLevel(
-                createLogEventDTO.getDescription(), createLogEventDTO.getSource(), currentDate, createLogEventDTO.getLevel())
-                .orElse(logEventMapper.toEntity(createLogEventDTO));
+        LogEvent logEvent = generateLogEvent(createLogEventDTO);
+        logEvent = logEventRepository.save(logEvent);
+        return logEventMapper.toCreatedDTO(logEvent);
+    }
+
+    private LogEvent generateLogEvent(CreateLogEventDTO createLogEventDTO) {
+        String description = createLogEventDTO.getDescription();
+        String source = createLogEventDTO.getSource();
+        LogEventLevel level = createLogEventDTO.getLevel();
+
+        LogEvent logEvent = logEventRepository.findByDescriptionAndSourceAndEventDateAndLevel(description, source,
+                LocalDate.now(), level).orElse(logEventMapper.toEntity(createLogEventDTO));
 
         if (logEvent.getId() != null) {
             logEvent.increaseQuantity();
         }
 
-        logEvent = logEventRepository.save(logEvent);
-        return logEventMapper.toCreatedDTO(logEvent);
+        return logEvent;
     }
 
     @Override

@@ -16,6 +16,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 @EnableAuthorizationServer
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
+    public static final String CLIENT_ID = "codenation";
+    public static final String CLIENT_SECRET = "acelera@dev";
+
     private final AuthenticationManager authenticationManager;
 
     public AuthorizationServerConfiguration(AuthenticationManager authenticationManager) {
@@ -30,10 +33,10 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("acelera@dev")
-                .secret(passwordEncoder().encode("codenation"))
+                .withClient(CLIENT_ID)
+                .secret(passwordEncoder().encode(CLIENT_SECRET))
                 .authorizedGrantTypes("client_credentials")
-                .scopes("resource:read", "resource:write");
+                .scopes("read", "write");
     }
 
     @Override
