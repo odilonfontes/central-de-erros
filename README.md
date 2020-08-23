@@ -1,2 +1,3 @@
 # error-center-api
-Projeto de uma API Rest para centralizar registros de erros de aplicações.
+API Rest para manter eventos de log para aplicações e serviços.
+Onde é possível criar, consultar listagem e buscar determinado evento de log.
