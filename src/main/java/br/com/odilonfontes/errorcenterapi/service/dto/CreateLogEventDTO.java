@@ -7,22 +7,23 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class CreateLogEventDTO {
 
-    @NotNull
-    @NotBlank
+    @Size(max = 256)
+    @NotNull @NotBlank
     private String description;
 
-    @NotNull
-    @NotBlank
+    @Size(max = 32767)
+    @NotNull @NotBlank
     private String log;
 
-    @NotNull
-    @NotBlank
+    @Size(max = 256)
+    @NotNull @NotBlank
     private String source;
 
     @NotNull
