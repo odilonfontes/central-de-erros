@@ -1,6 +1,6 @@
 package br.com.odilonfontes.errorcenterapi.domain.enumeration;
 
-public enum EventLevel {
+public enum LogEventLevel {
     ERROR,
     WARNING,
     INFO
