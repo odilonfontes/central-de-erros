@@ -8,7 +8,8 @@ Qualquer requisição será permitida apenas por token de acesso válido. As apl
 Swagger URL: **https://error-center-api-application.herokuapp.com/swagger-ui/index.html**
 
 ## Access token request:
-URL: **https://error-center-api-application.herokuapp.com/oauth/token** <br/>
+URL: **https://error-center-api-application.herokuapp.com/oauth/token**
+<br/>
 Parameters:<br/>
 grant_type: **client_credentials**<br/>
 client_id: **codenation**<br/>
