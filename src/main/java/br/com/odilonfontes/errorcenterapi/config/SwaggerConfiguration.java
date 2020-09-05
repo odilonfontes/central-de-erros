@@ -17,11 +17,7 @@ public class SwaggerConfiguration {
 
     private static final String API_INFO_TITLE = "Error Center API";
     private static final String API_INFO_DESCRIPTION = "API Rest para que as aplicações e serviços possam gravar" +
-            "eventos de log em banco de dados relacional." +
-            "<br><br>" +
-            "<p>TOKEN URL: <b>/oauth/token?grant_type=client_credentials</b></p>" +
-            "<p>CLIENT_ID: <b>"+ CLIENT_ID +"</b></p>" +
-            "<p>CLIENT_SECRET: <b>"+ CLIENT_SECRET +"</b></p>";
+            "eventos de log em banco de dados relacional.";
     private static final String API_INFO_SNAPSHOT = "SNAPSHOT";
     private static final Contact API_INFO_CONTACT = new Contact("Odilon Fontes",
                                                                 "https://github.com/odilonfontes", null);
